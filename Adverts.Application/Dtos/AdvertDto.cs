@@ -2,7 +2,7 @@
 
 namespace Adverts.Application.Dtos
 {
-    public class AdvertsDto
+    public class AdvertDto
     {
         public int Id { get; set; }
         public int MemberId { get; set; }

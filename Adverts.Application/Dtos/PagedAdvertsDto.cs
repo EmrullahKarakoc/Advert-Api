@@ -6,6 +6,6 @@ namespace Adverts.Application.Dtos
     {
         public int Page { get; set; }
         public int Total { get; set; }
-        public List<AdvertsDto> Adverts { get; set; }
+        public List<AdvertDto> Adverts { get; set; }
     }
 }

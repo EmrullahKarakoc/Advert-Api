@@ -7,6 +7,6 @@ namespace Adverts.Application.Interfaces
     public interface IAdvertService
     {
         Task<BaseResponse<PagedAdvertsDto>> GetAllAsync(int page, int limit);
-        Task<BaseResponse<AdvertsDto>> GetByIdAsync(int id);
+        Task<BaseResponse<AdvertDto>> GetByIdAsync(int id);
     }
 }

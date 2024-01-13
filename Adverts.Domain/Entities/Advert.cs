@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Adverts.Domain.Entities
 {
-    public class Adverts
+    public class Advert
     {
         public int Id { get; set; }
         public int MemberId { get; set; }
@@ -24,7 +24,5 @@ namespace Adverts.Domain.Entities
         public string UserInfo { get; set; }
         public string UserPhone { get; set; }
         public string Text { get; set; }
-
-        public ICollection<AdvertVisit> AdvertVisits { get; set; }
     }
 }

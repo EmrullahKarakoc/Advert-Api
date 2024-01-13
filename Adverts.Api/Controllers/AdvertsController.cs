@@ -27,7 +27,7 @@ namespace Adverts.Api.Controllers
         [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get([FromBody] int page, [FromBody] int limit)
+        public async Task<IActionResult> Get([FromQuery] int page, [FromQuery] int limit)
         {
             var response = await _advertService.GetAllAsync(page,limit);
 

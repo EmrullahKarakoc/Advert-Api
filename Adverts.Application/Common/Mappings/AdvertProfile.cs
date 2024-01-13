@@ -8,7 +8,7 @@ namespace Adverts.Application.Common.Mappings
     {
         public AdvertProfile()
         {
-            CreateMap<Adverts, AdvertVisitDto>().ReverseMap();
+            CreateMap<Advert, AdvertDto>().ReverseMap();
         }
 
     }

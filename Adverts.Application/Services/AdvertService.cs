@@ -1,9 +1,11 @@
 ﻿using Adverts.Application.Common.Models;
+using Adverts.Application.Common.Persistence;
 using Adverts.Application.Dtos;
 using Adverts.Application.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Adverts.Application.Services
@@ -11,26 +13,33 @@ namespace Adverts.Application.Services
     public class AdvertService : IAdvertService
     {
         private readonly IMapper _mapper;
+        private readonly IAdvertRepository _advertRepository;
 
-        public AdvertService(IMapper mapper)
+
+        public AdvertService(IAdvertRepository advertRepository, IMapper mapper)
         {
+            _advertRepository = advertRepository;
             _mapper = mapper;
         }
 
-        public Task<BaseResponse<PagedAdvertsDto>> GetAllAsync(int page, int limit)
+        public async Task<BaseResponse<PagedAdvertsDto>> GetAllAsync(int page, int limit)
         {
-            throw new NotImplementedException();
+            var response = new BaseResponse<PagedAdvertsDto>();
+            var adverts = await _advertRepository.GetAllAsync();
+            var pagedAdverts = adverts.Skip(page * limit).Take(limit).ToList();
+
+            response.Result.Adverts = _mapper.Map<List<AdvertDto>>(pagedAdverts);
+            response.Total = adverts.Count();
+
+            return await Task.FromResult(response);
         }
 
-        public Task<BaseResponse<AdvertsDto>> GetByIdAsync(int id)
+        public async Task<BaseResponse<AdvertDto>> GetByIdAsync(int id)
         {
-            var response = new BaseResponse<AdvertsDto>();
-            response.Result = new AdvertsDto();
+            var response = new BaseResponse<AdvertDto>();
+            var advert = await _advertRepository.GetByIdAsync(id);
 
-            response.Result.CityName = "Ankara";
-            return Task.FromResult(response);
-            //_mapper.Map<AdvertsDto>(advert)
-            //throw new NotImplementedException();
+            return await Task.FromResult(response);
         }
     }
 }

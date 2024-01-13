@@ -1,5 +1,7 @@
+using Adverts.Application.Common.Persistence;
 using Adverts.Application.Interfaces;
 using Adverts.Application.Services;
+using Adverts.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +33,8 @@ namespace Adverts.Api
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient<IAdvertService, AdvertService>();
-            services.AddTransient<IAdvertVisitService, AdvertVisitService>();
+            services.AddTransient<IAdvertRepository, AdvertRepository>();
+            services.AddTransient<IAdvertVisitRepository, AdvertVisitRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
