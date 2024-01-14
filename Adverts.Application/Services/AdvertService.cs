@@ -29,6 +29,7 @@ namespace Adverts.Application.Services
             var pagedAdverts = adverts.Skip(page * limit).Take(limit).ToList();
 
             response.Result.Adverts = _mapper.Map<List<AdvertDto>>(pagedAdverts);
+            response.Result.Page = page;
             response.Total = adverts.Count();
 
             return await Task.FromResult(response);

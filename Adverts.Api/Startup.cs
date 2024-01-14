@@ -31,16 +31,16 @@ namespace Adverts.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddTransient<IAdvertService, AdvertService>();
-            services.AddTransient<IAdvertRepository, AdvertRepository>();
-            services.AddTransient<IAdvertVisitRepository, AdvertVisitRepository>();
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Adverts.Api", Version = "v1" });
             });
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<IAdvertRepository, AdvertRepository>();
+            services.AddTransient<IAdvertVisitRepository, AdvertVisitRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

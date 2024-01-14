@@ -2,7 +2,6 @@
 using Adverts.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Adverts.Api.Controllers
@@ -12,15 +11,13 @@ namespace Adverts.Api.Controllers
     public class AdvertsController : Controller
     {
 
-        private readonly ILogger<AdvertsController> _logger;
         private readonly IAdvertService _advertService;
         private readonly IAdvertVisitService _advertVisitService;
 
-        public AdvertsController(IAdvertService advertService, IAdvertVisitService advertVisitService, ILogger<AdvertsController> logger)
+        public AdvertsController(IAdvertService advertService, IAdvertVisitService advertVisitService)
         {
             _advertService = advertService;
             _advertVisitService = advertVisitService;
-            _logger = logger;
         }
 
         [HttpGet]
