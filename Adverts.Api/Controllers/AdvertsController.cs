@@ -1,4 +1,5 @@
 ﻿using Adverts.Application.Common.Models;
+using Adverts.Application.Dtos;
 using Adverts.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,9 @@ namespace Adverts.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get([FromQuery] int page, [FromQuery] int limit)
         {
             var response = await _advertService.GetAllAsync(page,limit);
@@ -39,9 +40,9 @@ namespace Adverts.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status204NoContent)]
-        [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(BaseResponse<AdvertDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BaseResponse<AdvertDto>), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(BaseResponse<AdvertDto>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var response = await _advertService.GetByIdAsync(id);

@@ -23,7 +23,7 @@ namespace Adverts.Infrastructure.Persistence.Repositories
         {
             await using var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
-            var sql = "Select * FROM public.Advert ORDER BY id";
+            var sql = "Select * FROM public.\"Advert\" ORDER BY id";
             await connection.OpenAsync();
             var result = connection.Query<Advert>(sql).ToList();
 
@@ -34,11 +34,10 @@ namespace Adverts.Infrastructure.Persistence.Repositories
         public async Task<Advert> GetByIdAsync(int id)
         {
             await using var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-
-            var sql = "Select * FROM public.Advert WHERE id='" + id + "'";
+            var sql = "Select * FROM public.\"Advert\" WHERE id='" + id + "'";
             await connection.OpenAsync();
-            var result = connection.QueryFirstOrDefault<Advert>(sql);
 
+            var result = connection.QueryFirstOrDefault<Advert>(sql);
             return result;
         }
     }

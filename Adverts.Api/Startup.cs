@@ -39,6 +39,7 @@ namespace Adverts.Api
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<IAdvertVisitService, AdvertVisitService>();
             services.AddTransient<IAdvertRepository, AdvertRepository>();
             services.AddTransient<IAdvertVisitRepository, AdvertVisitRepository>();
         }

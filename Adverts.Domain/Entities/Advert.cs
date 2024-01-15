@@ -13,7 +13,7 @@ namespace Adverts.Domain.Entities
         public string TownName { get; set; }
         public int ModelId { get; set; }
         public string ModelName { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public int CategoryId { get; set; }
         public double Km { get; set; }
         public string Color { get; set; }

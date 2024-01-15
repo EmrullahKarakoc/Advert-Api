@@ -40,6 +40,8 @@ namespace Adverts.Application.Services
             var response = new BaseResponse<AdvertDto>();
             var advert = await _advertRepository.GetByIdAsync(id);
 
+            response.Result = _mapper.Map<AdvertDto>(advert);
+
             return await Task.FromResult(response);
         }
     }
