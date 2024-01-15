@@ -30,7 +30,7 @@ namespace Adverts.Application.Services
 
             response.Result.Adverts = _mapper.Map<List<AdvertDto>>(pagedAdverts);
             response.Result.Page = page;
-            response.Total = adverts.Count();
+            response.Total = adverts.Count() / limit;
 
             return await Task.FromResult(response);
         }

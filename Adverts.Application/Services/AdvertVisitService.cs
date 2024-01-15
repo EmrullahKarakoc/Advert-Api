@@ -20,19 +20,16 @@ namespace Adverts.Application.Services
             _advertVisitRepository = advertVisitRepository;
             _mapper = mapper;
         }
-        public async Task<BaseResponse<bool>> CreateAdvertVisitAsync(int advertId)
+        public async Task<BaseResponse<bool>> CreateAdvertVisitAsync(int advertId, string remoteIpAddress)
         {
             var response = new BaseResponse<bool>();
-
-            string hostName = Dns.GetHostName();
-            string ipAddress = Dns.GetHostByName(hostName).AddressList[0].ToString();
 
             var isAdded = await _advertVisitRepository.AddAsync(
                 new AdvertVisit()
                 {
                     AdvertId = advertId,
                     VisitDate = DateTime.UtcNow,
-                    IpAddress = ipAddress ?? "1.1.1.1"
+                    IpAddress = remoteIpAddress ?? "1.1.1.1"
                 });
 
             response.Result = isAdded;

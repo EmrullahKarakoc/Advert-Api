@@ -22,13 +22,13 @@ namespace Adverts.Infrastructure.Persistence.Repositories
         public async Task<List<Advert>> GetAllAsync()
         {
             await using var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-
             var sql = "Select * FROM public.\"Advert\" ORDER BY id";
             await connection.OpenAsync();
+
             var result = connection.Query<Advert>(sql).ToList();
 
+            await connection.CloseAsync();
             return result;
-
         }
 
         public async Task<Advert> GetByIdAsync(int id)
@@ -38,6 +38,8 @@ namespace Adverts.Infrastructure.Persistence.Repositories
             await connection.OpenAsync();
 
             var result = connection.QueryFirstOrDefault<Advert>(sql);
+
+            await connection.CloseAsync();
             return result;
         }
     }

@@ -19,9 +19,10 @@ namespace Adverts.Infrastructure.Persistence.Repositories
         public async Task<bool> AddAsync(AdvertVisit entity)
         {
             await using var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-            var sql = "INSERT INTO public.\"AdvertVisit\" (advertId, ipAddress,visitDate) VALUES (" + entity.AdvertId + "," + entity.IpAddress + "," + entity.VisitDate+")";
+            var sql = "INSERT INTO public.\"AdvertVisit\" (advertId, iPAdress,visitDate) VALUES (" + entity.AdvertId + ",'" + entity.IpAddress + "','" + entity.VisitDate+"')";
             var rowsAffected = await connection.ExecuteAsync(sql);
 
+            await connection.CloseAsync();
             return rowsAffected > 0 ? true : false;
         }
     }

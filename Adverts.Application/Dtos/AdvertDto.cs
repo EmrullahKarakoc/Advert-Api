@@ -13,6 +13,9 @@ namespace Adverts.Application.Dtos
         public int ModelId { get; set; }
         public string ModelName { get; set; }
         public int Year { get; set; }
+        public int Price { get; set; }
+        public string Title { get; set; }
+        public DateTime Date { get; set; }
         public int CategoryId { get; set; }
         public double Km { get; set; }
         public string Color { get; set; }

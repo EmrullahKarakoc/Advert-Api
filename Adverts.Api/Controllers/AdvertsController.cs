@@ -1,4 +1,5 @@
 ﻿using Adverts.Application.Common.Models;
+using Adverts.Application.Common.Models.Request;
 using Adverts.Application.Dtos;
 using Adverts.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -60,9 +61,11 @@ namespace Adverts.Api.Controllers
         [Route("/visit")]
         [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(BaseResponse<bool>), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post([FromBody] int advertId)
+        public async Task<IActionResult> Post([FromBody] AdvertVisitCreateRequest request)
         {
-            var response = await _advertVisitService.CreateAdvertVisitAsync(advertId);
+            var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            var response = await _advertVisitService.CreateAdvertVisitAsync(request.advertId, remoteIpAddress);
 
             if (!response.HasError)
                 return Ok(response);
