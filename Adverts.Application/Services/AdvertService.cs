@@ -2,6 +2,7 @@
 using Adverts.Application.Common.Persistence;
 using Adverts.Application.Dtos;
 using Adverts.Application.Interfaces;
+using Adverts.Domain.Entities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,14 @@ namespace Adverts.Application.Services
         public async Task<BaseResponse<PagedAdvertsDto>> GetAllAsync(int page, int limit)
         {
             var response = new BaseResponse<PagedAdvertsDto>();
+            response.Result = new PagedAdvertsDto();
+
             var adverts = await _advertRepository.GetAllAsync();
             var pagedAdverts = adverts.Skip(page * limit).Take(limit).ToList();
+            response.Total = limit > adverts.Count() ? 1 : (int)Math.Ceiling((double)adverts.Count() / limit);
 
             response.Result.Adverts = _mapper.Map<List<AdvertDto>>(pagedAdverts);
             response.Result.Page = page;
-            response.Total = adverts.Count() / limit;
 
             return await Task.FromResult(response);
         }
