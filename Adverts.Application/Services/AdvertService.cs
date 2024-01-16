@@ -2,7 +2,6 @@
 using Adverts.Application.Common.Persistence;
 using Adverts.Application.Dtos;
 using Adverts.Application.Interfaces;
-using Adverts.Domain.Entities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -25,8 +24,10 @@ namespace Adverts.Application.Services
 
         public async Task<BaseResponse<PagedAdvertsDto>> GetAllAsync(int page, int limit)
         {
-            var response = new BaseResponse<PagedAdvertsDto>();
-            response.Result = new PagedAdvertsDto();
+            var response = new BaseResponse<PagedAdvertsDto>()
+            {
+                Result = new PagedAdvertsDto()
+            };
 
             var adverts = await _advertRepository.GetAllAsync();
             var pagedAdverts = adverts.Skip(page * limit).Take(limit).ToList();
@@ -40,11 +41,13 @@ namespace Adverts.Application.Services
 
         public async Task<BaseResponse<AdvertDto>> GetByIdAsync(int id)
         {
-            var response = new BaseResponse<AdvertDto>();
+            var response = new BaseResponse<AdvertDto>()
+            {
+                Result = new AdvertDto()
+            };
             var advert = await _advertRepository.GetByIdAsync(id);
 
             response.Result = _mapper.Map<AdvertDto>(advert);
-
             return await Task.FromResult(response);
         }
     }

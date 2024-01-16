@@ -4,7 +4,6 @@ using Adverts.Application.Interfaces;
 using Adverts.Domain.Entities;
 using AutoMapper;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Adverts.Application.Services

@@ -3,7 +3,6 @@ using Adverts.Domain.Entities;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-using System;
 using System.Threading.Tasks;
 
 namespace Adverts.Infrastructure.Persistence.Repositories

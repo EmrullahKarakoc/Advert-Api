@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Adverts.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AdvertsController : Controller
     {
 
@@ -28,31 +28,31 @@ namespace Adverts.Api.Controllers
         [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get([FromQuery] int page, [FromQuery] int limit)
         {
-            var response = await _advertService.GetAllAsync(page,limit);
+            var response = await _advertService.GetAllAsync(page, limit);
+
+            if (!response.HasError && response.Result == default(PagedAdvertsDto))
+                return NoContent();
 
             if (!response.HasError)
                 return Ok(response);
-
-            if (!response.HasError && response.Result == null)
-                return NotFound(response);
 
             return BadRequest(response);
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("/{advertId}")]
         [ProducesResponseType(typeof(BaseResponse<AdvertDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponse<AdvertDto>), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BaseResponse<AdvertDto>), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] int advertId)
         {
-            var response = await _advertService.GetByIdAsync(id);
+            var response = await _advertService.GetByIdAsync(advertId);
+
+            if (!response.HasError && response.Result == default(AdvertDto))
+                return NoContent();
 
             if (!response.HasError)
                 return Ok(response);
-
-            if (!response.HasError && response.Result == null)
-                return NotFound(response);
 
             return BadRequest(response);
         }

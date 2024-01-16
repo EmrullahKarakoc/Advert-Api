@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Adverts.Application.Common.Models
+﻿namespace Adverts.Application.Common.Models
 {
     public class ErrorResponse
     {
