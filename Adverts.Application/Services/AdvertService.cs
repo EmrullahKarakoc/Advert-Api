@@ -48,6 +48,7 @@ namespace Adverts.Application.Services
             var advert = await _advertRepository.GetByIdAsync(id);
 
             response.Result = _mapper.Map<AdvertDto>(advert);
+            response.Total = 1;
             return await Task.FromResult(response);
         }
     }

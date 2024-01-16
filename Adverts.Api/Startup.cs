@@ -1,3 +1,4 @@
+using Adverts.Application.Common.Mappings;
 using Adverts.Application.Common.Persistence;
 using Adverts.Application.Interfaces;
 using Adverts.Application.Services;
@@ -8,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 namespace Adverts.Api
 {
@@ -30,7 +30,8 @@ namespace Adverts.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Adverts.Api", Version = "v1" });
             });
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(AdvertProfile), typeof(AdvertVisitProfile));
+
             services.AddTransient<IAdvertService, AdvertService>();
             services.AddTransient<IAdvertVisitService, AdvertVisitService>();
             services.AddTransient<IAdvertRepository, AdvertRepository>();

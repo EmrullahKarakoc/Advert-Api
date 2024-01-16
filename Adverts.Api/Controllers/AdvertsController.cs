@@ -23,10 +23,11 @@ namespace Adverts.Api.Controllers
         }
 
         [HttpGet]
+        [Route("/all")]
         [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BaseResponse<PagedAdvertsDto>), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get([FromQuery] int page, [FromQuery] int limit)
+        public async Task<IActionResult> Get([FromQuery] int page = 0, [FromQuery] int limit = 50)
         {
             var response = await _advertService.GetAllAsync(page, limit);
 
@@ -68,7 +69,7 @@ namespace Adverts.Api.Controllers
             var response = await _advertVisitService.CreateAdvertVisitAsync(request.advertId, remoteIpAddress);
 
             if (!response.HasError)
-                return Ok(response);
+                return Created("https:\\google.com",response);
 
             return BadRequest(response);
         }
