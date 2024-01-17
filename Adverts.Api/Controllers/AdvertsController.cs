@@ -31,7 +31,7 @@ namespace Adverts.Api.Controllers
         {
             var response = await _advertService.GetAllAsync(page, limit);
 
-            if (!response.HasError && response.Result == default(PagedAdvertsDto))
+            if (!response.HasError && response.Result.Adverts.Count == 0)
                 return NoContent();
 
             if (!response.HasError)
@@ -69,7 +69,7 @@ namespace Adverts.Api.Controllers
             var response = await _advertVisitService.CreateAdvertVisitAsync(request.advertId, remoteIpAddress);
 
             if (!response.HasError)
-                return Created("https:\\google.com",response);
+                return Ok(response);
 
             return BadRequest(response);
         }

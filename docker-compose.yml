@@ -1,0 +1,47 @@
+﻿version: "1.0"
+
+services:
+
+     advertsapi:
+        container_name: advertsapi
+        image: adverts-api
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - advertsdb
+        ports:
+            - 44301:80
+        networks:
+            - adverts-network
+        environment:
+            ASPNETCORE_ENVIRONMENT: Development
+     
+     advertsdb:
+        container_name: advertsdb
+        image: postgres:latest
+        environment:
+            - POSTGRES_PASSWORD=1234
+            - POSTGRES_USER=admin
+            - POSTGRES_DB=devdb
+        networks:
+            - adverts-network
+        ports:
+            - 5432:5432
+
+     pgadmin:
+        container_name: advertsdevpgadmin
+        image: dpage/pgadmin4:latest
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+            - PGADMIN_DEFAULT_PASSWORD=admin
+
+        ports:
+            - 5051:80
+        networks:
+            - adverts-network
+
+
+networks:
+    adverts-network:
+        driver: bridge
